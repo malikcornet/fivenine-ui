@@ -131,10 +131,17 @@ fs.writeFileSync(path.join(versionDir, 'index.html'), '<meta http-equiv="refresh
 
 // --- site root: versions.json (merged), redirect, .nojekyll ------------------
 
+// Tolerate a missing, empty, or corrupt seeded file (e.g. the gh-pages branch
+// exists but has no versions.json yet) — treat it as "no previous versions".
 const versionsFile = path.join(outDir, 'versions.json');
-const existingVersions = fs.existsSync(versionsFile)
-  ? (JSON.parse(fs.readFileSync(versionsFile, 'utf8')).versions ?? [])
-  : [];
+let existingVersions = [];
+if (fs.existsSync(versionsFile)) {
+  try {
+    existingVersions = JSON.parse(fs.readFileSync(versionsFile, 'utf8')).versions ?? [];
+  } catch {
+    console.warn('build-site: ignoring unparseable dist-site/versions.json seed');
+  }
+}
 const localVersions = fs
   .readdirSync(outDir, { withFileTypes: true })
   .filter((entry) => entry.isDirectory() && /^\d+\.\d+\.\d+/.test(entry.name))

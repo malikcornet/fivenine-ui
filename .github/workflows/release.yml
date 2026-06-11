@@ -74,7 +74,10 @@ jobs:
         run: |
           mkdir -p dist-site
           if git fetch origin gh-pages --depth=1 2>/dev/null; then
-            git show FETCH_HEAD:versions.json > dist-site/versions.json 2>/dev/null || true
+            # If gh-pages has no versions.json, remove the empty redirect target
+            # instead of leaving a zero-byte file for build-site to choke on.
+            git show FETCH_HEAD:versions.json > dist-site/versions.json 2>/dev/null \
+              || rm -f dist-site/versions.json
           fi
 
       - name: Assemble static site
