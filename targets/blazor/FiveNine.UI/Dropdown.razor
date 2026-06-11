@@ -1,0 +1,63 @@
+@namespace FiveNine.UI
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div @ref="_root" class="fn-dropdown" @attributes="AdditionalAttributes">
+    <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>@Label</button>
+    <div class="@MenuCssClass" role="menu">@ChildContent</div>
+</div>
+
+@code {
+    [Parameter] public string Label { get; set; } = "";
+
+    /// <summary>Menu alignment relative to the trigger: "start" or "end".</summary>
+    [Parameter] public string Align { get; set; } = "start";
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private ElementReference _root;
+    private IJSObjectReference? _module;
+    private int _interopId;
+    private bool _disposed;
+
+    private string MenuCssClass => Align == "end"
+        ? "fn-dropdown__menu fn-dropdown__menu--end"
+        : "fn-dropdown__menu";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        var module = await JS.InvokeAsync<IJSObjectReference>(
+            "import", "./_content/FiveNine.UI/interop.js");
+
+        // The component may have been disposed while the import was in flight
+        // (e.g. fast navigation away) — don't attach to a dead element.
+        if (_disposed)
+        {
+            await module.DisposeAsync();
+            return;
+        }
+
+        _module = module;
+        _interopId = await _module.InvokeAsync<int>("attach", _root);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _disposed = true;
+        if (_module is null) return;
+        try
+        {
+            if (_interopId != 0) await _module.InvokeVoidAsync("detach", _interopId);
+            await _module.DisposeAsync();
+        }
+        catch (JSDisconnectedException)
+        {
+            // Browser context is gone; nothing to clean up.
+        }
+    }
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dropdown / Basic — fivenine ui</title>
+    <script type="module">
+      import '@fivenine/ui/all.css';
+      import '../../_assets/example-frame.js';
+      import { attachDropdown } from '@fivenine/ui';
+
+      attachDropdown(document.querySelector('.fn-dropdown'));
+    </script>
+  </head>
+  <body class="fn-app">
+    <div class="fn-dropdown">
+      <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>Options</button>
+      <div class="fn-dropdown__menu" role="menu">
+        <button type="button" class="fn-dropdown__item" role="menuitem">Rename</button>
+        <button type="button" class="fn-dropdown__item" role="menuitem">Duplicate</button>
+        <button type="button" class="fn-dropdown__item" role="menuitem">Delete</button>
+      </div>
+    </div>
+  </body>
+</html>

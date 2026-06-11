@@ -1,0 +1,229 @@
+body {
+  margin: 0;
+  font-family: var(--fn-font-sans);
+}
+
+.docs-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--fn-space-3) var(--fn-space-6);
+  background: var(--fn-color-bg);
+  border-bottom: 1px solid var(--fn-color-border);
+}
+
+.docs-brand {
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: var(--fn-color-fg);
+}
+
+.docs-brand span {
+  color: var(--fn-color-accent);
+}
+
+.docs-header__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--fn-space-2);
+}
+
+.docs-select {
+  padding: var(--fn-space-1) var(--fn-space-2);
+  font: inherit;
+  color: var(--fn-color-fg);
+  background: var(--fn-color-surface);
+  border: 1px solid var(--fn-color-border);
+  border-radius: var(--fn-radius-sm);
+}
+
+.docs-theme-toggle {
+  padding: var(--fn-space-1) var(--fn-space-3);
+}
+
+.docs-main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: var(--fn-space-6);
+}
+
+.docs-hero h1 {
+  margin: 0 0 var(--fn-space-2);
+  font-size: 2.2rem;
+}
+
+.docs-hero p {
+  max-width: 40rem;
+  color: var(--fn-color-fg-muted);
+}
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: var(--fn-space-4);
+  margin-top: var(--fn-space-6);
+}
+
+.docs-card {
+  display: block;
+  padding: var(--fn-space-4);
+  text-decoration: none;
+  color: var(--fn-color-fg);
+  background: var(--fn-color-surface);
+  border: 1px solid var(--fn-color-border);
+  border-radius: var(--fn-radius-lg);
+  transition: border-color var(--fn-transition-fast);
+}
+
+.docs-card:hover {
+  border-color: var(--fn-color-accent);
+}
+
+.docs-card h2 {
+  margin: 0 0 var(--fn-space-2);
+  font-size: 1.1rem;
+}
+
+.docs-card p {
+  margin: 0 0 var(--fn-space-3);
+  font-size: 0.9rem;
+  color: var(--fn-color-fg-muted);
+}
+
+.docs-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fn-space-1);
+}
+
+.docs-chip {
+  padding: 0.1rem var(--fn-space-2);
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--fn-color-border);
+  color: var(--fn-color-fg-muted);
+}
+
+.docs-chip--stable {
+  border-color: var(--fn-color-accent);
+  color: var(--fn-color-accent);
+}
+
+.docs-chip--planned {
+  opacity: 0.6;
+}
+
+.docs-component-header p {
+  max-width: 40rem;
+  color: var(--fn-color-fg-muted);
+}
+
+.docs-variant {
+  margin-top: var(--fn-space-8);
+}
+
+.docs-variant > p {
+  color: var(--fn-color-fg-muted);
+}
+
+.docs-planned {
+  padding: var(--fn-space-4);
+  background: var(--fn-color-surface);
+  border: 1px dashed var(--fn-color-border);
+  border-radius: var(--fn-radius-md);
+  color: var(--fn-color-fg-muted);
+}
+
+.example-frame {
+  border: 1px solid var(--fn-color-border);
+  border-radius: var(--fn-radius-md);
+  overflow: hidden;
+}
+
+.example-frame__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--fn-space-2);
+  padding: var(--fn-space-2) var(--fn-space-3);
+  background: var(--fn-color-surface);
+  border-bottom: 1px solid var(--fn-color-border);
+}
+
+.example-frame--planned .example-frame__toolbar {
+  display: none;
+}
+
+.example-frame__group {
+  display: flex;
+  align-items: center;
+  gap: var(--fn-space-1);
+}
+
+.example-frame__tool {
+  padding: 0.15rem var(--fn-space-2);
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--fn-color-fg-muted);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--fn-radius-sm);
+  cursor: pointer;
+}
+
+.example-frame__tool:hover {
+  color: var(--fn-color-fg);
+}
+
+.example-frame__tool--active {
+  color: var(--fn-color-accent);
+  border-color: var(--fn-color-accent);
+}
+
+.example-frame__stage {
+  display: flex;
+  justify-content: center;
+  background: var(--fn-color-surface);
+}
+
+.example-frame iframe {
+  display: block;
+  width: 100%;
+  border: 0;
+  transition: height var(--fn-transition-fast), width var(--fn-transition-fast);
+}
+
+.example-frame__placeholder {
+  width: 100%;
+}
+
+.example-frame__open {
+  padding: 0.15rem var(--fn-space-2);
+  font-size: 0.78rem;
+  text-decoration: none;
+  color: var(--fn-color-fg-muted);
+}
+
+.example-frame__open:hover {
+  color: var(--fn-color-accent);
+}
+
+/* Shiki (astro:components Code) emits <pre class="astro-code"> with inline colors. */
+.docs-code {
+  margin-top: var(--fn-space-3);
+}
+
+.docs-code pre {
+  margin: 0;
+  padding: var(--fn-space-4);
+  overflow-x: auto;
+  font-family: var(--fn-font-mono);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  border-radius: var(--fn-radius-md);
+}

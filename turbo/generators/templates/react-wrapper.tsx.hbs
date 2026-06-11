@@ -1,0 +1,8 @@
+import type { ComponentPropsWithoutRef } from 'react';
+import { cx } from './cx.js';
+
+export interface {{pascal slug}}Props extends ComponentPropsWithoutRef<'div'> {}
+
+export function {{pascal slug}}({ className, ...rest }: {{pascal slug}}Props) {
+  return <div className={cx('fn-{{slug}}', className)} {...rest} />;
+}

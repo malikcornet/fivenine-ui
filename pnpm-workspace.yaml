@@ -1,0 +1,10 @@
+packages:
+  - library
+  - docs
+  - targets/html
+  - targets/react
+  - targets/react/examples
+  - targets/blazor
+
+onlyBuiltDependencies:
+  - esbuild

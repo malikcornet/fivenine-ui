@@ -1,0 +1,12 @@
+@namespace FiveNine.UI
+
+<button type="button" class="fn-dropdown__item" role="menuitem" @attributes="AdditionalAttributes" @onclick="OnClick">@ChildContent</button>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

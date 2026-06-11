@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev"],
+      "port": 5100,
+      "autoPort": false
+    },
+    {
+      "name": "pages-sim",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8090", "-d", "/tmp/pages-sim"],
+      "port": 8090,
+      "autoPort": false
+    }
+  ]
+}

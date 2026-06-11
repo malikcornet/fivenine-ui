@@ -1,0 +1,64 @@
+{
+  "name": "@fivenine/ui",
+  "version": "0.1.0",
+  "description": "fivenine ui core: design tokens, component CSS, and framework-agnostic behavior modules.",
+  "type": "module",
+  "main": "./js/index.js",
+  "module": "./js/index.js",
+  "types": "./js/index.d.ts",
+  "sideEffects": ["**/*.css", "js/example-frame.js"],
+  "scripts": {
+    "build": "node build-tokens.mjs && lightningcss --bundle --minify all.css --output-file all.min.css",
+    "dev": "node --watch-path=src build-tokens.mjs",
+    "size": "size-limit"
+  },
+  "exports": {
+    ".": {
+      "types": "./js/index.d.ts",
+      "default": "./js/index.js"
+    },
+    "./dropdown": {
+      "types": "./js/dropdown.d.ts",
+      "default": "./js/dropdown.js"
+    },
+    "./example-frame": "./js/example-frame.js",
+    "./all.css": "./all.css",
+    "./all.min.css": "./all.min.css",
+    "./tokens.css": "./tokens/tokens.css",
+    "./themes/light.css": "./tokens/themes/light.css",
+    "./themes/dark.css": "./tokens/themes/dark.css",
+    "./css/base.css": "./css/base.css",
+    "./css/button.css": "./css/button.css",
+    "./css/dropdown.css": "./css/dropdown.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["all.css", "all.min.css", "tokens", "css", "js"],
+  "size-limit": [
+    {
+      "name": "all.min.css (everything bundle, gzip)",
+      "path": "all.min.css",
+      "limit": "3 kB"
+    }
+  ],
+  "keywords": ["design-system", "css", "components"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malikcornet/fivenine-ui.git",
+    "directory": "library"
+  },
+  "homepage": "https://malikcornet.github.io/fivenine-ui/",
+  "bugs": "https://github.com/malikcornet/fivenine-ui/issues",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "publishConfig": {
+    "provenance": true
+  },
+  "devDependencies": {
+    "@size-limit/file": "^11.2.0",
+    "lightningcss-cli": "^1.30.0",
+    "size-limit": "^11.2.0",
+    "style-dictionary": "^4.3.0"
+  }
+}

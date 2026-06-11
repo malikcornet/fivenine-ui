@@ -1,0 +1,17 @@
+@namespace FiveNine.UI
+
+<button type="button" class="@CssClass" disabled="@Disabled" @attributes="AdditionalAttributes">@ChildContent</button>
+
+@code {
+    /// <summary>Visual variant: "primary" or "secondary".</summary>
+    [Parameter] public string Variant { get; set; } = "primary";
+
+    [Parameter] public bool Disabled { get; set; }
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string CssClass => $"fn-btn fn-btn--{Variant}";
+}

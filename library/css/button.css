@@ -1,0 +1,46 @@
+@layer fivenine.components {
+  .fn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--fn-space-2);
+    padding: var(--fn-space-2) var(--fn-space-4);
+    font: inherit;
+    font-family: var(--fn-font-sans);
+    font-weight: 500;
+    line-height: 1.25;
+    border: 1px solid transparent;
+    border-radius: var(--fn-radius-md);
+    cursor: pointer;
+    transition: background var(--fn-transition-fast), border-color var(--fn-transition-fast);
+  }
+
+  .fn-btn:focus-visible {
+    outline: 2px solid var(--fn-color-accent);
+    outline-offset: 2px;
+  }
+
+  .fn-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .fn-btn--primary {
+    background: var(--fn-color-accent);
+    color: var(--fn-color-accent-fg);
+  }
+
+  .fn-btn--primary:hover:not(:disabled) {
+    background: var(--fn-color-accent-hover);
+  }
+
+  .fn-btn--secondary {
+    background: var(--fn-color-surface);
+    color: var(--fn-color-fg);
+    border-color: var(--fn-color-border);
+  }
+
+  .fn-btn--secondary:hover:not(:disabled) {
+    border-color: var(--fn-color-fg-muted);
+  }
+}

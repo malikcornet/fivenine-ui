@@ -1,0 +1,87 @@
+name: Release
+
+# Changesets-driven releases:
+#   1. PRs include a changeset file (`pnpm changeset`).
+#   2. On push to main, changesets/action opens/updates a "Version Packages" PR
+#      that bumps the lockstep version and changelogs (the Blazor csproj and the
+#      site read the version from library/package.json).
+#   3. Merging that PR publishes to npm, packs/pushes NuGet, and deploys the
+#      versioned docs site to gh-pages (old versions are kept and stay listed
+#      in versions.json, which is seeded from the gh-pages branch below).
+#
+# Requires the NPM_TOKEN secret (and NUGET_API_KEY for NuGet publishing).
+# Run manually (workflow_dispatch) to redeploy the site without publishing.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  # npm provenance attestation (publishConfig.provenance in both packages)
+  id-token: write
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+env:
+  HAS_NUGET_KEY: ${{ secrets.NUGET_API_KEY != '' }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+        with:
+          registry-url: https://registry.npmjs.org
+
+      - run: pnpm validate
+
+      - name: Create version PR or publish to npm
+        id: changesets
+        if: github.event_name == 'push'
+        uses: changesets/action@v1
+        with:
+          version: pnpm run version
+          publish: pnpm run release
+          commit: 'chore: version packages'
+          title: 'chore: version packages'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install wasm-tools workload (smaller Blazor publish)
+        if: steps.changesets.outputs.published == 'true' || github.event_name == 'workflow_dispatch'
+        run: dotnet workload install wasm-tools
+
+      # keep_files preserves old version FOLDERS on gh-pages, but versions.json
+      # is overwritten by each deploy — seed the existing list so build-site can
+      # merge previously published versions into the switcher.
+      - name: Seed versions.json from gh-pages
+        if: steps.changesets.outputs.published == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          mkdir -p dist-site
+          if git fetch origin gh-pages --depth=1 2>/dev/null; then
+            git show FETCH_HEAD:versions.json > dist-site/versions.json 2>/dev/null || true
+          fi
+
+      - name: Assemble static site
+        if: steps.changesets.outputs.published == 'true' || github.event_name == 'workflow_dispatch'
+        run: node scripts/build-site.mjs --base "/${{ github.event.repository.name }}"
+
+      - name: Deploy docs to GitHub Pages (keeps previous versions)
+        if: steps.changesets.outputs.published == 'true' || github.event_name == 'workflow_dispatch'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist-site
+          keep_files: true
+
+      - name: Pack and publish NuGet package
+        if: steps.changesets.outputs.published == 'true' && env.HAS_NUGET_KEY == 'true'
+        run: |
+          dotnet pack targets/blazor/FiveNine.UI -c Release -o nupkgs
+          dotnet nuget push "nupkgs/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json

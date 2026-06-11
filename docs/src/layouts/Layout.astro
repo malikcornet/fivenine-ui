@@ -1,0 +1,72 @@
+---
+import '@fivenine/ui/all.css';
+import '../docs.css';
+// @ts-expect-error untyped shared convention module
+import { PORTS } from '../../../scripts/lib/conventions.mjs';
+import { TARGETS } from '../manifest';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+// In dev the targets run as separate servers (Astro's dev server answers all
+// text/html requests itself, so same-origin proxying can't serve them); the
+// client script reads these origins from a data attribute. Empty in prod:
+// the published site serves all targets from sibling folders on one origin.
+const exampleOrigins = import.meta.env.DEV
+  ? Object.fromEntries(
+      TARGETS.map((target) => [target, `http://localhost:${PORTS[target]}`]),
+    )
+  : {};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <script is:inline>
+      // Apply the persisted theme before first paint to avoid a flash.
+      (function () {
+        var stored = localStorage.getItem('fn-docs-theme');
+        var theme =
+          stored === 'dark' || stored === 'light'
+            ? stored
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body class="fn-app" data-base={base} data-example-origins={JSON.stringify(exampleOrigins)}>
+    <header class="docs-header">
+      <a href={base} class="docs-brand">fivenine<span>/ui</span></a>
+      <div class="docs-header__controls">
+        <select class="docs-select" data-version-select aria-label="Version" hidden></select>
+        <select class="docs-select" data-target-select aria-label="Target framework">
+          {TARGETS.map((target) => <option value={target}>{target}</option>)}
+        </select>
+        <button
+          type="button"
+          class="fn-btn fn-btn--secondary docs-theme-toggle"
+          data-theme-toggle
+          aria-label="Toggle theme"
+        >
+        </button>
+      </div>
+    </header>
+    <main class="docs-main">
+      <slot />
+    </main>
+    <script>
+      import '../scripts/docs.ts';
+    </script>
+  </body>
+</html>

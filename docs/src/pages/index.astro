@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { manifest, TARGETS } from '../manifest';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<Layout title="fivenine ui">
+  <section class="docs-hero">
+    <h1>fivenine ui</h1>
+    <p>
+      One core library — CSS tokens and behaviors — consumed by plain HTML, React, and Blazor.
+      Pick a component to see live examples rendered by every target.
+    </p>
+  </section>
+  <section class="docs-grid">
+    {
+      manifest.components.map((component) => (
+        <a href={`${base}${component.slug}/`} class="docs-card">
+          <h2>{component.name}</h2>
+          <p>{component.description}</p>
+          <div class="docs-card__chips">
+            {TARGETS.map((target) => (
+              <span class={`docs-chip docs-chip--${component.targets[target]}`}>{target}</span>
+            ))}
+          </div>
+        </a>
+      ))
+    }
+  </section>
+</Layout>

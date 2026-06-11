@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ./.github/actions/setup
+
+      - name: Validate manifest and example conventions
+        run: pnpm validate
+
+      # Build both publishable packages: tokens + flattened CSS bundle for
+      # @fivenine/ui, and a type-check via tsc for the React wrappers (the
+      # site build below compiles examples with esbuild, which skips types).
+      - name: Build publishable packages
+        run: pnpm --filter @fivenine/ui build && pnpm --filter @fivenine/react build
+
+      # Catch packaging regressions before consumers do: publint for exports/
+      # files/sideEffects mistakes, attw for type-resolution across resolvers.
+      - name: Verify packaging (publint + arethetypeswrong)
+        run: pnpm lint:packages
+
+      - name: Check bundle-size budgets
+        run: pnpm size
+
+      # Builds every package with production base paths and assembles the site
+      # — no separate `pnpm build` pass, which would compile everything twice.
+      - name: Assemble static site
+        run: node scripts/build-site.mjs --base "/${{ github.event.repository.name }}"

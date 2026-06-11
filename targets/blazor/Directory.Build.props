@@ -1,0 +1,10 @@
+<Project>
+  <PropertyGroup>
+    <!-- Lockstep versioning: changesets owns the version via library/package.json
+         (the npm packages are a fixed group); NuGet reads the same value. -->
+    <FiveNineCorePackageJson>$([System.IO.File]::ReadAllText('$(MSBuildThisFileDirectory)../../library/package.json'))</FiveNineCorePackageJson>
+    <Version>$([System.Text.RegularExpressions.Regex]::Match($(FiveNineCorePackageJson), '"version":\s*"([^"]+)"').Groups[1].Value)</Version>
+    <Authors>fivenine</Authors>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+</Project>

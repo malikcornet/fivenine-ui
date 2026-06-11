@@ -1,0 +1,95 @@
+---
+import { Code } from 'astro:components';
+import Layout from '../layouts/Layout.astro';
+import type { Component, TargetId } from '../manifest';
+import { manifest, TARGETS } from '../manifest';
+import { exampleSource } from '../sources';
+
+export function getStaticPaths() {
+  return manifest.components.map((component) => ({
+    params: { slug: component.slug },
+    props: { component },
+  }));
+}
+
+interface Props {
+  component: Component;
+}
+
+const { component } = Astro.props;
+
+const LANG: Record<TargetId, 'html' | 'tsx' | 'razor'> = {
+  html: 'html',
+  react: 'tsx',
+  blazor: 'razor',
+};
+---
+
+<Layout title={`${component.name} — fivenine ui`}>
+  <article>
+    <header class="docs-component-header">
+      <h1>{component.name}</h1>
+      <div class="docs-card__chips">
+        {
+          TARGETS.map((target) => (
+            <span class={`docs-chip docs-chip--${component.targets[target]}`}>
+              {target}: {component.targets[target]}
+            </span>
+          ))
+        }
+      </div>
+      <p>{component.description}</p>
+    </header>
+
+    {
+      component.variants.map((variant) => (
+        <section class="docs-variant">
+          <h2 id={variant.slug}>{variant.title}</h2>
+          <p>{variant.description}</p>
+          <div
+            class="example-frame"
+            data-component={component.slug}
+            data-variant={variant.slug}
+            data-targets={JSON.stringify(component.targets)}
+            data-min-height={String(variant.minHeight ?? 96)}
+          >
+            <div class="example-frame__toolbar">
+              <div class="example-frame__group" role="group" aria-label="Viewport">
+                <button type="button" class="example-frame__tool" data-viewport="mobile">Mobile</button>
+                <button type="button" class="example-frame__tool" data-viewport="tablet">Tablet</button>
+                <button type="button" class="example-frame__tool" data-viewport="desktop">Desktop</button>
+              </div>
+              <div class="example-frame__group">
+                <button
+                  type="button"
+                  class="example-frame__tool"
+                  data-frame-theme
+                  aria-label="Toggle example theme"
+                ></button>
+                <a class="example-frame__open" target="_blank" rel="noreferrer">
+                  Open standalone ↗
+                </a>
+              </div>
+            </div>
+            <div class="example-frame__stage">
+              <div class="example-frame__placeholder"></div>
+              <div class="docs-planned" hidden>
+                The selected target does not implement {component.name} yet.
+              </div>
+            </div>
+          </div>
+          {TARGETS.filter((target) => component.targets[target] !== 'planned').map((target) => {
+            const source = exampleSource(target, component.slug, variant.slug);
+            return (
+              source && (
+                <div class="docs-code" data-code-target={target} hidden>
+                  <Code code={source.trimEnd()} lang={LANG[target]} theme="github-dark-dimmed" />
+                </div>
+              )
+            );
+          })}
+        </section>
+      ))
+    }
+  </article>
+</Layout>

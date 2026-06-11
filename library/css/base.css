@@ -1,0 +1,12 @@
+/* Opt-in app baseline. Apply .fn-app to <body> (or any container) to pick up
+   the token-driven background, text color, and font.
+   All library styles live in the `fivenine` cascade layer, so any unlayered
+   consumer CSS overrides them without specificity games. */
+
+@layer fivenine.base {
+  .fn-app {
+    font-family: var(--fn-font-sans);
+    background: var(--fn-color-bg);
+    color: var(--fn-color-fg);
+  }
+}

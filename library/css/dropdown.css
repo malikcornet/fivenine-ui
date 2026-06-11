@@ -1,0 +1,49 @@
+@layer fivenine.components {
+  .fn-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .fn-dropdown__menu {
+    position: absolute;
+    top: calc(100% + var(--fn-space-1));
+    left: 0;
+    z-index: 10;
+    display: none;
+    min-width: 11rem;
+    padding: var(--fn-space-1);
+    background: var(--fn-color-bg);
+    border: 1px solid var(--fn-color-border);
+    border-radius: var(--fn-radius-md);
+    box-shadow: var(--fn-shadow-md);
+  }
+
+  .fn-dropdown--open .fn-dropdown__menu {
+    display: block;
+  }
+
+  .fn-dropdown__menu--end {
+    left: auto;
+    right: 0;
+  }
+
+  .fn-dropdown__item {
+    display: block;
+    width: 100%;
+    padding: var(--fn-space-2) var(--fn-space-3);
+    font: inherit;
+    font-family: var(--fn-font-sans);
+    text-align: left;
+    color: var(--fn-color-fg);
+    background: none;
+    border: none;
+    border-radius: var(--fn-radius-sm);
+    cursor: pointer;
+  }
+
+  .fn-dropdown__item:hover,
+  .fn-dropdown__item:focus-visible {
+    background: var(--fn-color-surface);
+    outline: none;
+  }
+}

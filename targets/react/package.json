@@ -1,0 +1,76 @@
+{
+  "name": "@fivenine/react",
+  "version": "0.1.0",
+  "description": "React wrappers for fivenine ui. Import CSS separately from @fivenine/ui.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "size": "size-limit"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/Button.d.ts",
+      "default": "./dist/Button.js"
+    },
+    "./dropdown": {
+      "types": "./dist/Dropdown.d.ts",
+      "default": "./dist/Dropdown.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "src"],
+  "size-limit": [
+    {
+      "name": "import { Button } (gzip, tree-shaken)",
+      "path": "dist/index.js",
+      "import": "{ Button }",
+      "limit": "1 kB"
+    },
+    {
+      "name": "import { Dropdown } (gzip, tree-shaken)",
+      "path": "dist/index.js",
+      "import": "{ Dropdown }",
+      "limit": "2 kB"
+    },
+    {
+      "name": "everything (gzip)",
+      "path": "dist/index.js",
+      "limit": "3 kB"
+    }
+  ],
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "dependencies": {
+    "@fivenine/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^11.2.0",
+    "@types/react": "^19.0.0",
+    "size-limit": "^11.2.0",
+    "typescript": "^5.8.0"
+  },
+  "keywords": ["design-system", "react", "components"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/malikcornet/fivenine-ui.git",
+    "directory": "targets/react"
+  },
+  "homepage": "https://malikcornet.github.io/fivenine-ui/",
+  "bugs": "https://github.com/malikcornet/fivenine-ui/issues",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "publishConfig": {
+    "provenance": true
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": { "$value": "#ffffff" },
+    "surface": { "$value": "#f6f7f9" },
+    "fg": { "$value": "#1a1d21" },
+    "fg-muted": { "$value": "#5c636e" },
+    "border": { "$value": "#d8dce2" },
+    "accent": { "$value": "#4f46e5" },
+    "accent-hover": { "$value": "#4338ca" },
+    "accent-fg": { "$value": "#ffffff" }
+  },
+  "shadow": {
+    "md": { "$value": "0 4px 12px rgb(0 0 0 / 0.12)" }
+  }
+}
