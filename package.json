@@ -13,7 +13,7 @@
     "new:component": "turbo gen component",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm --filter @fivenine/ui build && pnpm --filter @fivenine/react build && pnpm lint:packages && changeset publish",
+    "release": "pnpm --filter @fivenine-collective/ui build && pnpm --filter @fivenine-collective/react build && pnpm lint:packages && changeset publish",
     "sync:blazor-assets": "node scripts/sync-blazor-assets.mjs"
   },
   "pnpm": {

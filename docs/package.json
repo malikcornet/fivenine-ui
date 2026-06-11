@@ -1,5 +1,5 @@
 {
-  "name": "@fivenine/docs",
+  "name": "@fivenine-collective/docs",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,7 @@
     "build": "astro build"
   },
   "dependencies": {
-    "@fivenine/ui": "workspace:*",
+    "@fivenine-collective/ui": "workspace:*",
     "astro": "^5.0.0",
     "yaml": "^2.8.0"
   }

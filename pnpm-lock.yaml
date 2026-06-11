@@ -32,7 +32,7 @@ importers:
 
   docs:
     dependencies:
-      '@fivenine/ui':
+      '@fivenine-collective/ui':
         specifier: workspace:*
         version: link:../library
       astro:
@@ -59,13 +59,13 @@ importers:
 
   targets/blazor:
     devDependencies:
-      '@fivenine/ui':
+      '@fivenine-collective/ui':
         specifier: workspace:*
         version: link:../../library
 
   targets/html:
     dependencies:
-      '@fivenine/ui':
+      '@fivenine-collective/ui':
         specifier: workspace:*
         version: link:../../library
     devDependencies:
@@ -75,7 +75,7 @@ importers:
 
   targets/react:
     dependencies:
-      '@fivenine/ui':
+      '@fivenine-collective/ui':
         specifier: workspace:*
         version: link:../../library
       react:
@@ -97,10 +97,10 @@ importers:
 
   targets/react/examples:
     dependencies:
-      '@fivenine/react':
+      '@fivenine-collective/react':
         specifier: workspace:*
         version: link:..
-      '@fivenine/ui':
+      '@fivenine-collective/ui':
         specifier: workspace:*
         version: link:../../../library
       react:

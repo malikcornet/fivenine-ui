@@ -1,11 +1,11 @@
-# @fivenine/ui
+# @fivenine-collective/ui
 
 Framework-agnostic core of [fivenine ui](https://malikcornet.github.io/fivenine-ui/): design
 tokens, component CSS, and small behavior modules. Framework wrappers (e.g.
-[`@fivenine/react`](https://www.npmjs.com/package/@fivenine/react)) build on top of this package.
+[`@fivenine-collective/react`](https://www.npmjs.com/package/@fivenine-collective/react)) build on top of this package.
 
 ```sh
-npm install @fivenine/ui
+npm install @fivenine-collective/ui
 ```
 
 ## Usage
@@ -13,24 +13,24 @@ npm install @fivenine/ui
 Everything at once (tokens, light + dark themes, every component):
 
 ```css
-@import "@fivenine/ui/all.css";
+@import "@fivenine-collective/ui/all.css";
 ```
 
-A pre-flattened, minified copy of the same bundle ships as `@fivenine/ui/all.min.css` — use it
+A pre-flattened, minified copy of the same bundle ships as `@fivenine-collective/ui/all.min.css` — use it
 when loading from a CDN or without a CSS bundler (no `@import` waterfall).
 
 For the smallest output, import only what you use:
 
 ```css
-@import "@fivenine/ui/tokens.css";        /* primitives + light defaults on :root */
-@import "@fivenine/ui/themes/dark.css";   /* optional [data-theme="dark"] overrides */
-@import "@fivenine/ui/css/button.css";    /* one file per component */
+@import "@fivenine-collective/ui/tokens.css";        /* primitives + light defaults on :root */
+@import "@fivenine-collective/ui/themes/dark.css";   /* optional [data-theme="dark"] overrides */
+@import "@fivenine-collective/ui/css/button.css";    /* one file per component */
 ```
 
 Behavior modules are plain ESM with types, importable per component:
 
 ```js
-import { attachDropdown } from "@fivenine/ui/dropdown";
+import { attachDropdown } from "@fivenine-collective/ui/dropdown";
 ```
 
 ## Cascade layers

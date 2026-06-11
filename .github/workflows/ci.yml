@@ -17,10 +17,10 @@ jobs:
         run: pnpm validate
 
       # Build both publishable packages: tokens + flattened CSS bundle for
-      # @fivenine/ui, and a type-check via tsc for the React wrappers (the
+      # @fivenine-collective/ui, and a type-check via tsc for the React wrappers (the
       # site build below compiles examples with esbuild, which skips types).
       - name: Build publishable packages
-        run: pnpm --filter @fivenine/ui build && pnpm --filter @fivenine/react build
+        run: pnpm --filter @fivenine-collective/ui build && pnpm --filter @fivenine-collective/react build
 
       # Catch packaging regressions before consumers do: publint for exports/
       # files/sideEffects mistakes, attw for type-resolution across resolvers.

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
-import { attachDropdown } from '@fivenine/ui/dropdown';
+import { attachDropdown } from '@fivenine-collective/ui/dropdown';
 import { cx } from './cx.js';
 
 export interface DropdownProps extends ComponentPropsWithoutRef<'div'> {

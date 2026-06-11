@@ -1,5 +1,5 @@
 // Shared shell for standalone example pages, used by every target (the html
-// and react examples import it from @fivenine/ui; the Blazor host loads the
+// and react examples import it from @fivenine-collective/ui; the Blazor host loads the
 // copy synced into _content/FiveNine.UI/fivenine/js/).
 //
 // URL contract (also used by tests):

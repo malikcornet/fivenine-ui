@@ -1,5 +1,5 @@
 {
-  "name": "@fivenine/react-examples",
+  "name": "@fivenine-collective/react-examples",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,8 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@fivenine/react": "workspace:*",
-    "@fivenine/ui": "workspace:*",
+    "@fivenine-collective/react": "workspace:*",
+    "@fivenine-collective/ui": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.0"

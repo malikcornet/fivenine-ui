@@ -10,7 +10,7 @@
     "skipLibCheck": true,
     "types": ["vite/client"],
     "paths": {
-      "@fivenine/react": ["../src/index.ts"]
+      "@fivenine-collective/react": ["../src/index.ts"]
     }
   },
   "include": ["src", "vite.config.ts"]

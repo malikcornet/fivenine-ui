@@ -1,4 +1,4 @@
-import { Dropdown, DropdownItem } from '@fivenine/react';
+import { Dropdown, DropdownItem } from '@fivenine-collective/react';
 
 export default function DropdownEndAligned() {
   return (

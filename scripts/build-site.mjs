@@ -93,12 +93,12 @@ const exampleRoutes = (target) =>
 // --- build each project with its public base path ---------------------------
 
 run('node scripts/validate.mjs');
-run('pnpm --filter @fivenine/ui build');
+run('pnpm --filter @fivenine-collective/ui build');
 run('node scripts/sync-blazor-assets.mjs');
 await runAll([
-  { command: 'pnpm --filter @fivenine/html-examples build', env: { BASE_PATH: basePathFor('html') } },
-  { command: 'pnpm --filter @fivenine/react-examples build', env: { BASE_PATH: basePathFor('react') } },
-  { command: 'pnpm --filter @fivenine/docs build', env: { BASE_PATH: `${siteBase}/${version}/docs/` } },
+  { command: 'pnpm --filter @fivenine-collective/html-examples build', env: { BASE_PATH: basePathFor('html') } },
+  { command: 'pnpm --filter @fivenine-collective/react-examples build', env: { BASE_PATH: basePathFor('react') } },
+  { command: 'pnpm --filter @fivenine-collective/docs build', env: { BASE_PATH: `${siteBase}/${version}/docs/` } },
   { command: 'dotnet publish targets/blazor/FiveNine.UI.Examples -c Release -o targets/blazor/publish' },
 ]);
 

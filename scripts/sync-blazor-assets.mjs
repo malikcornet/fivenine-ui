@@ -17,7 +17,7 @@ const tokensStale =
     .readdirSync(path.join(source, 'src/tokens'))
     .some((file) => fs.statSync(path.join(source, 'src/tokens', file)).mtimeMs > fs.statSync(tokensCss).mtimeMs);
 if (tokensStale) {
-  execSync('pnpm --filter @fivenine/ui build', { cwd: repoRoot, stdio: 'inherit' });
+  execSync('pnpm --filter @fivenine-collective/ui build', { cwd: repoRoot, stdio: 'inherit' });
 }
 const destination = path.join(repoRoot, 'targets/blazor/FiveNine.UI/wwwroot/fivenine');
 

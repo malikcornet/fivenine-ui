@@ -1,7 +1,7 @@
 {
-  "name": "@fivenine/react",
+  "name": "@fivenine-collective/react",
   "version": "0.1.0",
-  "description": "React wrappers for fivenine ui. Import CSS separately from @fivenine/ui.",
+  "description": "React wrappers for fivenine ui. Import CSS separately from @fivenine-collective/ui.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -50,7 +50,7 @@
     "react": ">=19"
   },
   "dependencies": {
-    "@fivenine/ui": "workspace:*"
+    "@fivenine-collective/ui": "workspace:*"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^11.2.0",

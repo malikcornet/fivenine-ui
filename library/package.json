@@ -1,5 +1,5 @@
 {
-  "name": "@fivenine/ui",
+  "name": "@fivenine-collective/ui",
   "version": "0.1.0",
   "description": "fivenine ui core: design tokens, component CSS, and framework-agnostic behavior modules.",
   "type": "module",

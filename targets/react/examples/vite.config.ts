@@ -16,7 +16,7 @@ export default defineConfig({
     // Point at the wrapper sources so editing targets/react/src hot-reloads
     // here without a library build step.
     alias: {
-      '@fivenine/react': path.resolve(pkgRoot, '../src/index.ts'),
+      '@fivenine-collective/react': path.resolve(pkgRoot, '../src/index.ts'),
     },
   },
   server: {

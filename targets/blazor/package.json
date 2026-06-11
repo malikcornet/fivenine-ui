@@ -1,5 +1,5 @@
 {
-  "name": "@fivenine/blazor-target",
+  "name": "@fivenine-collective/blazor-target",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,6 @@
     "build": "node ../../scripts/sync-blazor-assets.mjs && dotnet build FiveNine.UI.sln -c Release"
   },
   "devDependencies": {
-    "@fivenine/ui": "workspace:*"
+    "@fivenine-collective/ui": "workspace:*"
   }
 }

@@ -8,10 +8,10 @@ URL convention and deploys as a versioned static site to GitHub Pages.
 
 ```
 manifest/components.yaml   Source of truth: components, variants, per-target support
-library/                   @fivenine/ui — tokens (Style Dictionary), component CSS, behavior JS (npm)
+library/                   @fivenine-collective/ui — tokens (Style Dictionary), component CSS, behavior JS (npm)
 targets/
   html/                    Static example pages (Vite)
-  react/                   @fivenine/react wrappers (npm) + examples app in examples/
+  react/                   @fivenine-collective/react wrappers (npm) + examples app in examples/
   blazor/                  FiveNine.UI Razor class lib (NuGet) + one WASM examples host
 docs/                      Custom Astro docs site (statically generated, no Storybook)
 turbo/generators/          turbo gen templates for scaffolding components
@@ -46,7 +46,7 @@ in the docs instead).
 Example pages accept `?theme=light|dark` and `?dimensions=mobile|tablet|desktop`
 (375px / 768px / full width) — a stable URL contract that browser tests can target too.
 The shell implementing this contract ships once in the core library
-(`@fivenine/ui/example-frame`) and is used by all three targets. Pages postMessage
+(`@fivenine-collective/ui/example-frame`) and is used by all three targets. Pages postMessage
 their content height (including open overlays like dropdown menus) to the docs iframes
 and accept live `{type:'fivenine:set'}` messages, so the docs switch theme/viewport
 without reloading the frame (Blazor's runtime never re-boots). Variants that open
@@ -87,17 +87,17 @@ CSS and JS are tree-shakable: import everything, or only what you use.
 
 ```js
 // everything
-import '@fivenine/ui/all.css';
+import '@fivenine-collective/ui/all.css';
 
 // à la carte
-import '@fivenine/ui/tokens.css';
-import '@fivenine/ui/themes/light.css';
-import '@fivenine/ui/css/button.css';
-import { attachDropdown } from '@fivenine/ui/dropdown';
+import '@fivenine-collective/ui/tokens.css';
+import '@fivenine-collective/ui/themes/light.css';
+import '@fivenine-collective/ui/css/button.css';
+import { attachDropdown } from '@fivenine-collective/ui/dropdown';
 ```
 
-React (`@fivenine/react`) wrappers are ESM with per-component entry points
-(`@fivenine/react/button`); import the CSS from `@fivenine/ui` yourself.
+React (`@fivenine-collective/react`) wrappers are ESM with per-component entry points
+(`@fivenine-collective/react/button`); import the CSS from `@fivenine-collective/ui` yourself.
 
 Blazor (`FiveNine.UI` on NuGet) ships the core assets as static web assets:
 
@@ -108,7 +108,7 @@ Blazor (`FiveNine.UI` on NuGet) ships the core assets as static web assets:
 ## Versioning and releases
 
 Releases are driven by [Changesets](https://github.com/changesets/changesets), in lockstep
-across `@fivenine/ui`, `@fivenine/react`, and the `FiveNine.UI` NuGet package:
+across `@fivenine-collective/ui`, `@fivenine-collective/react`, and the `FiveNine.UI` NuGet package:
 
 1. With each meaningful change, run `pnpm changeset` and pick a bump (the two npm packages
    are a fixed group, so they always move together).

@@ -5,11 +5,11 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "fixed": [["@fivenine/ui", "@fivenine/react"]],
+  "fixed": [["@fivenine-collective/ui", "@fivenine-collective/react"]],
   "ignore": [
-    "@fivenine/docs",
-    "@fivenine/html-examples",
-    "@fivenine/react-examples",
-    "@fivenine/blazor-target"
+    "@fivenine-collective/docs",
+    "@fivenine-collective/html-examples",
+    "@fivenine-collective/react-examples",
+    "@fivenine-collective/blazor-target"
   ]
 }
