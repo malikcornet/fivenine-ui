@@ -81,6 +81,42 @@ pnpm new:component            # scaffold a component (interactive, via turbo gen
 pnpm changeset                # record a changeset alongside your change
 ```
 
+## Adding a component
+
+```sh
+pnpm new:component
+```
+
+The generator prompts for a kebab-case slug, display name, description, and variant list,
+then scaffolds the whole convention surface in one pass: the manifest entry (status `beta`
+for all targets), `library/css/{slug}.css` (pre-wrapped in `@layer fivenine.components`),
+the `@import` in `all.css`, the `./css/{slug}.css` export in `library/package.json`, the
+React wrapper + its `index.ts` export, the Blazor wrapper, and one example file per
+variant per target. It is re-runnable: existing files are left untouched.
+
+Then fill in the blanks:
+
+1. **Style it** — edit `library/css/{slug}.css` using `--fn-*` tokens only. Need a new
+   token? Add it to `library/src/tokens/*.json` (all three themes if it's semantic) and
+   run `pnpm --filter @fivenine-collective/ui build`.
+2. **Implement the wrappers** — the generated React stub is a `div` passthrough in
+   `targets/react/src/{Pascal}.tsx` (keep relative imports suffixed `.js` — the build
+   targets native ESM); the Blazor stub is `targets/blazor/FiveNine.UI/{Pascal}.razor`.
+3. **Write the examples** — they're rendered live in the docs and are the de-facto tests.
+4. **Behavior JS** (only for interactive components — see dropdown): handwrite
+   `library/js/{slug}.js` + `{slug}.d.ts`, re-export from `js/index.js`, add a
+   `"./{slug}"` entry to the library `exports` map, and import it in wrappers via the
+   subpath (`@fivenine-collective/ui/{slug}`). The generator does not scaffold this part.
+5. **Verify** — `pnpm validate` (manifest ↔ files ↔ exports contract), `pnpm dev` to see
+   it in the docs. CI additionally runs publint/attw and the size-limit budgets
+   (1–3 kB, configured in the two package.jsons) — bump a budget consciously if the
+   component is genuinely heavy.
+6. **Ship** — `pnpm changeset`, pick a bump, merge.
+
+Manifest knobs: set a target to `planned` to defer it (validate allows the missing
+example; the docs show a placeholder), and give a variant `minHeight` if it opens an
+overlay that needs reserved iframe space.
+
 ## Consuming the library
 
 CSS and JS are tree-shakable: import everything, or only what you use.
@@ -120,6 +156,7 @@ across `@fivenine-collective/ui`, `@fivenine-collective/react`, and the `FiveNin
    and deploys the versioned docs site to the `gh-pages` branch — old versions are kept
    and `versions.json` drives the docs version switcher.
 
-Requires the `NPM_TOKEN` secret. Set the repository's Pages source to the `gh-pages`
-branch. Run the workflow manually (workflow_dispatch) to redeploy the site without
-publishing packages.
+npm auth is trusted publishing (OIDC) — no `NPM_TOKEN` secret; see the comments in
+[release.yml](.github/workflows/release.yml) for the one-time per-package bootstrap.
+The repository's Pages source must be the `gh-pages` branch. Run the workflow manually
+(workflow_dispatch) to redeploy the site without publishing packages.
