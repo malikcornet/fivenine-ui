@@ -1,0 +1,13 @@
+node_modules/
+dist/
+*.log
+
+# Environment files — safety net so secrets never land in git
+.env
+.env.*
+!.env.example
+
+# Claude Code personal settings
+.claude/settings.local.json
+
+.DS_Store
