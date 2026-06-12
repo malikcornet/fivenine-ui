@@ -8,8 +8,8 @@
     "build": "astro build"
   },
   "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
     "@fivenine-collective/ui": "workspace:*",
-    "astro": "^5.0.0",
-    "yaml": "^2.8.0"
+    "astro": "^5.0.0"
   }
 }

@@ -1,9 +1,6 @@
 ---
 import '@fivenine-collective/ui/all.css';
 import '../docs.css';
-// @ts-expect-error untyped shared convention module
-import { PORTS } from '../../../scripts/lib/conventions.mjs';
-import { TARGETS } from '../manifest';
 
 interface Props {
   title: string;
@@ -14,15 +11,9 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
 
-// In dev the targets run as separate servers (Astro's dev server answers all
-// text/html requests itself, so same-origin proxying can't serve them); the
-// client script reads these origins from a data attribute. Empty in prod:
-// the published site serves all targets from sibling folders on one origin.
-const exampleOrigins = import.meta.env.DEV
-  ? Object.fromEntries(
-      TARGETS.map((target) => [target, `http://localhost:${PORTS[target]}`]),
-    )
-  : {};
+// Set by scripts/build-site.mjs when building a released version from its tag;
+// the latest build (site root) leaves it unset.
+const docsVersion = process.env.DOCS_VERSION ?? 'latest';
 ---
 
 <!doctype html>
@@ -45,14 +36,11 @@ const exampleOrigins = import.meta.env.DEV
       })();
     </script>
   </head>
-  <body class="fn-app" data-base={base} data-example-origins={JSON.stringify(exampleOrigins)}>
+  <body class="fn-app" data-base={base} data-docs-version={docsVersion}>
     <header class="docs-header">
       <a href={base} class="docs-brand">fivenine<span>/ui</span></a>
       <div class="docs-header__controls">
         <select class="docs-select" data-version-select aria-label="Version" hidden></select>
-        <select class="docs-select" data-target-select aria-label="Target framework">
-          {TARGETS.map((target) => <option value={target}>{target}</option>)}
-        </select>
         <button
           type="button"
           class="fn-btn fn-btn--secondary docs-theme-toggle"

@@ -1,8 +1,8 @@
 # @fivenine-collective/ui
 
-Framework-agnostic core of [fivenine ui](https://malikcornet.github.io/fivenine-ui/): design
-tokens, component CSS, and small behavior modules. Framework wrappers (e.g.
-[`@fivenine-collective/react`](https://www.npmjs.com/package/@fivenine-collective/react)) build on top of this package.
+[fivenine ui](https://malikcornet.github.io/fivenine-ui/): design tokens, component CSS,
+and small framework-agnostic behavior modules. Plain CSS classes and ESM functions — no
+framework required, usable from any framework.
 
 ```sh
 npm install @fivenine-collective/ui

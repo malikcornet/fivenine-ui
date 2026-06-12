@@ -1,0 +1,39 @@
+---
+layout: ../layouts/ComponentLayout.astro
+title: Button
+description: A clickable action element. Ships visual variants and a disabled state, and accepts any native button attributes.
+status: stable
+---
+
+import Example from '../components/Example.astro';
+
+## Primary
+
+The main call-to-action style. Use at most once per view.
+
+<Example path="button/primary" />
+
+```html
+<button class="fn-btn fn-btn--primary">Save changes</button>
+```
+
+## Secondary
+
+A lower-emphasis companion to the primary button, for secondary actions.
+
+<Example path="button/secondary" />
+
+```html
+<button class="fn-btn fn-btn--secondary">Cancel</button>
+```
+
+## Disabled
+
+Non-interactive state for actions that are currently unavailable. Use the native
+`disabled` attribute — there is no class for it.
+
+<Example path="button/disabled" />
+
+```html
+<button class="fn-btn fn-btn--primary" disabled>Save changes</button>
+```

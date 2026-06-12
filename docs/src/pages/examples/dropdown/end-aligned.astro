@@ -1,0 +1,21 @@
+---
+import ExampleLayout from '../../../layouts/ExampleLayout.astro';
+---
+
+<ExampleLayout title="Dropdown / End aligned">
+  <div style="display: flex; justify-content: flex-end">
+    <div class="fn-dropdown">
+      <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>Options</button>
+      <div class="fn-dropdown__menu fn-dropdown__menu--end" role="menu">
+        <button type="button" class="fn-dropdown__item" role="menuitem">Rename</button>
+        <button type="button" class="fn-dropdown__item" role="menuitem">Duplicate</button>
+        <button type="button" class="fn-dropdown__item" role="menuitem">Delete</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    import { attachDropdown } from '@fivenine-collective/ui/dropdown';
+
+    attachDropdown(document.querySelector('.fn-dropdown'));
+  </script>
+</ExampleLayout>

@@ -13,14 +13,8 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Validate manifest and example conventions
-        run: pnpm validate
-
-      # Build both publishable packages: tokens + flattened CSS bundle for
-      # @fivenine-collective/ui, and a type-check via tsc for the React wrappers (the
-      # site build below compiles examples with esbuild, which skips types).
-      - name: Build publishable packages
-        run: pnpm --filter @fivenine-collective/ui build && pnpm --filter @fivenine-collective/react build
+      - name: Build the library
+        run: pnpm --filter @fivenine-collective/ui build
 
       # Catch packaging regressions before consumers do: publint for exports/
       # files/sideEffects mistakes, attw for type-resolution across resolvers.
@@ -30,7 +24,7 @@ jobs:
       - name: Check bundle-size budgets
         run: pnpm size
 
-      # Builds every package with production base paths and assembles the site
-      # — no separate `pnpm build` pass, which would compile everything twice.
-      - name: Assemble static site
-        run: node scripts/build-site.mjs --base "/${{ github.event.repository.name }}"
+      # Same script the deploy runs, but only the working-tree build — PR
+      # checkouts are shallow (no tags), and CI shouldn't rebuild old versions.
+      - name: Build the docs site (latest only)
+        run: node scripts/build-site.mjs --latest-only --base "/${{ github.event.repository.name }}"

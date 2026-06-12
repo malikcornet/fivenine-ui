@@ -1,0 +1,50 @@
+---
+layout: ../layouts/ComponentLayout.astro
+title: Dropdown
+description: A toggleable menu anchored to a trigger button. Handles outside-click and Escape dismissal, and manages aria-expanded on the trigger.
+status: beta
+---
+
+import Example from '../components/Example.astro';
+
+## Basic
+
+The default dropdown, with the menu aligned to the leading edge of the trigger.
+The markup is inert until you attach the behavior module to it.
+
+<Example path="dropdown/basic" minHeight={260} />
+
+```html
+<div class="fn-dropdown">
+  <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>Options</button>
+  <div class="fn-dropdown__menu" role="menu">
+    <button type="button" class="fn-dropdown__item" role="menuitem">Rename</button>
+    <button type="button" class="fn-dropdown__item" role="menuitem">Duplicate</button>
+    <button type="button" class="fn-dropdown__item" role="menuitem">Delete</button>
+  </div>
+</div>
+
+<script type="module">
+  import { attachDropdown } from '@fivenine-collective/ui/dropdown';
+
+  attachDropdown(document.querySelector('.fn-dropdown'));
+</script>
+```
+
+## End aligned
+
+The menu aligned to the trailing edge of the trigger, for use near the end of a
+toolbar or page edge. Add `fn-dropdown__menu--end` to the menu element.
+
+<Example path="dropdown/end-aligned" minHeight={260} />
+
+```html
+<div class="fn-dropdown">
+  <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>Options</button>
+  <div class="fn-dropdown__menu fn-dropdown__menu--end" role="menu">
+    <button type="button" class="fn-dropdown__item" role="menuitem">Rename</button>
+    <button type="button" class="fn-dropdown__item" role="menuitem">Duplicate</button>
+    <button type="button" class="fn-dropdown__item" role="menuitem">Delete</button>
+  </div>
+</div>
+```

@@ -4,28 +4,19 @@
   "private": true,
   "packageManager": "pnpm@10.30.3",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "validate": "node scripts/validate.mjs",
-    "lint:packages": "publint library && publint targets/react && attw --pack library --profile esm-only --entrypoints . dropdown && attw --pack targets/react --profile esm-only --entrypoints . button dropdown",
-    "size": "pnpm -r run size",
+    "dev": "pnpm --filter @fivenine-collective/ui build && pnpm -r --parallel run dev",
+    "build": "pnpm -r run build",
+    "lint:packages": "publint library && attw --pack library --profile esm-only --entrypoints . dropdown",
+    "size": "pnpm --filter @fivenine-collective/ui run size",
+    "build:docs": "pnpm --filter @fivenine-collective/ui build && pnpm --filter @fivenine-collective/docs build",
     "build:site": "node scripts/build-site.mjs",
-    "new:component": "turbo gen component",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "pnpm --filter @fivenine-collective/ui build && pnpm --filter @fivenine-collective/react build && pnpm lint:packages && changeset publish",
-    "sync:blazor-assets": "node scripts/sync-blazor-assets.mjs"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": ["lightningcss-cli"]
+    "release": "pnpm --filter @fivenine-collective/ui build && pnpm lint:packages && changeset publish"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.0",
     "@changesets/cli": "^2.29.0",
-    "@turbo/gen": "^2.5.0",
-    "publint": "^0.3.0",
-    "turbo": "^2.5.0",
-    "yaml": "^2.8.0",
-    "zod": "^3.25.0"
+    "publint": "^0.3.0"
   }
 }

@@ -1,0 +1,19 @@
+---
+import ExampleLayout from '../../../layouts/ExampleLayout.astro';
+---
+
+<ExampleLayout title="Dropdown / Basic">
+  <div class="fn-dropdown">
+    <button type="button" class="fn-btn fn-btn--secondary" data-fn-dropdown-trigger>Options</button>
+    <div class="fn-dropdown__menu" role="menu">
+      <button type="button" class="fn-dropdown__item" role="menuitem">Rename</button>
+      <button type="button" class="fn-dropdown__item" role="menuitem">Duplicate</button>
+      <button type="button" class="fn-dropdown__item" role="menuitem">Delete</button>
+    </div>
+  </div>
+  <script>
+    import { attachDropdown } from '@fivenine-collective/ui/dropdown';
+
+    attachDropdown(document.querySelector('.fn-dropdown'));
+  </script>
+</ExampleLayout>

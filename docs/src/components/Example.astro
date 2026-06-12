@@ -1,0 +1,35 @@
+---
+// Embeds a standalone example page (src/pages/examples/{path}.astro) in an
+// iframe with its own viewport switcher and light/dark toggle, independent of
+// the docs theme. All behavior lives in scripts/docs.ts.
+interface Props {
+  /** Example route relative to /examples/, e.g. "button/primary". */
+  path: string;
+  /** Reserved iframe height (px) for examples that open overlays. */
+  minHeight?: number;
+}
+
+const { path, minHeight = 96 } = Astro.props;
+---
+
+<div class="example-frame" data-path={path} data-min-height={String(minHeight)}>
+  <div class="example-frame__toolbar">
+    <div class="example-frame__group" role="group" aria-label="Viewport">
+      <button type="button" class="example-frame__tool" data-viewport="mobile">Mobile</button>
+      <button type="button" class="example-frame__tool" data-viewport="tablet">Tablet</button>
+      <button type="button" class="example-frame__tool" data-viewport="desktop">Desktop</button>
+    </div>
+    <div class="example-frame__group">
+      <button
+        type="button"
+        class="example-frame__tool"
+        data-frame-theme
+        aria-label="Toggle example theme"
+      ></button>
+      <a class="example-frame__open" target="_blank" rel="noreferrer">Open standalone ↗</a>
+    </div>
+  </div>
+  <div class="example-frame__stage">
+    <div class="example-frame__placeholder"></div>
+  </div>
+</div>

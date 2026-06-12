@@ -1,6 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { manifest, TARGETS } from '../manifest';
+
+// Every MDX file in src/pages/ is a component page; its route slug is its
+// file name and its card content comes from the frontmatter.
+const pages = import.meta.glob<{ frontmatter: Record<string, string> }>('./*.mdx', {
+  eager: true,
+});
+const components = Object.entries(pages)
+  .map(([file, page]) => ({
+    slug: file.replace(/^\.\//, '').replace(/\.mdx$/, ''),
+    ...page.frontmatter,
+  }))
+  .sort((a, b) => a.slug.localeCompare(b.slug));
 
 const base = import.meta.env.BASE_URL.endsWith('/')
   ? import.meta.env.BASE_URL
@@ -11,20 +22,18 @@ const base = import.meta.env.BASE_URL.endsWith('/')
   <section class="docs-hero">
     <h1>fivenine ui</h1>
     <p>
-      One core library — CSS tokens and behaviors — consumed by plain HTML, React, and Blazor.
-      Pick a component to see live examples rendered by every target.
+      Design tokens, component CSS, and framework-agnostic behavior JS — plain HTML in, styled
+      components out. Pick a component to see live examples.
     </p>
   </section>
   <section class="docs-grid">
     {
-      manifest.components.map((component) => (
+      components.map((component) => (
         <a href={`${base}${component.slug}/`} class="docs-card">
-          <h2>{component.name}</h2>
+          <h2>{component.title}</h2>
           <p>{component.description}</p>
           <div class="docs-card__chips">
-            {TARGETS.map((target) => (
-              <span class={`docs-chip docs-chip--${component.targets[target]}`}>{target}</span>
-            ))}
+            <span class={`docs-chip docs-chip--${component.status}`}>{component.status}</span>
           </div>
         </a>
       ))

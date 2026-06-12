@@ -1,0 +1,58 @@
+name: Deploy docs
+
+# Stateless, versioned docs deploy — no gh-pages branch; the whole site is
+# reproduced from git on every run and shipped as a Pages artifact:
+#   /              → latest docs, from main
+#   /<version>/    → each release tag (>= 0.2.0), built from its own code
+#   /versions.json → drives the in-page version switcher
+#
+# scripts/build-site.mjs does all the work; this workflow just runs it.
+# To retroactively fix an old version's docs, push a branch `docs/<version>`
+# (cut from the release tag) — the build prefers it over the tag.
+#
+# Requires: repo Settings → Pages → Source = "GitHub Actions".
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  # Called by release.yml after publishing: the push event that merged the
+  # Version Packages PR runs before the release tag exists, so the release
+  # workflow re-deploys once the tag is there.
+  workflow_call:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # all tags + history: old versions build from their tags
+
+      - uses: ./.github/actions/setup
+
+      - name: Build all versions
+        run: node scripts/build-site.mjs --base "/${GITHUB_REPOSITORY#*/}" --out _site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -122,19 +122,13 @@ body {
   color: var(--fn-color-fg-muted);
 }
 
-.docs-variant {
+/* MDX prose: variant sections are plain h2 + paragraphs. */
+article h2 {
   margin-top: var(--fn-space-8);
 }
 
-.docs-variant > p {
-  color: var(--fn-color-fg-muted);
-}
-
-.docs-planned {
-  padding: var(--fn-space-4);
-  background: var(--fn-color-surface);
-  border: 1px dashed var(--fn-color-border);
-  border-radius: var(--fn-radius-md);
+article > p {
+  max-width: 40rem;
   color: var(--fn-color-fg-muted);
 }
 
@@ -153,10 +147,6 @@ body {
   padding: var(--fn-space-2) var(--fn-space-3);
   background: var(--fn-color-surface);
   border-bottom: 1px solid var(--fn-color-border);
-}
-
-.example-frame--planned .example-frame__toolbar {
-  display: none;
 }
 
 .example-frame__group {
@@ -213,13 +203,9 @@ body {
   color: var(--fn-color-accent);
 }
 
-/* Shiki (astro:components Code) emits <pre class="astro-code"> with inline colors. */
-.docs-code {
-  margin-top: var(--fn-space-3);
-}
-
-.docs-code pre {
-  margin: 0;
+/* Shiki (MDX code fences) emits <pre class="astro-code"> with inline colors. */
+article pre.astro-code {
+  margin: var(--fn-space-3) 0 0;
   padding: var(--fn-space-4);
   overflow-x: auto;
   font-family: var(--fn-font-mono);

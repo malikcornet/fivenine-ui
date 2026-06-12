@@ -1,0 +1,31 @@
+---
+// Shell for the standalone example pages under src/pages/examples/. Each page
+// renders bare at /examples/{component}/{variant}/ and implements the URL
+// contract from @fivenine-collective/ui/example-frame:
+//   ?theme=light|dark                   sets the design-token theme
+//   ?dimensions=mobile|tablet|desktop   constrains content width (375/768/full)
+// plus the postMessage protocol the docs iframes use (height reporting and
+// live {type:'fivenine:set'} restyling).
+import '@fivenine-collective/ui/all.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} — fivenine ui</title>
+  </head>
+  <body class="fn-app">
+    <slot />
+    <script>
+      import '@fivenine-collective/ui/example-frame';
+    </script>
+  </body>
+</html>

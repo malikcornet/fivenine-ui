@@ -1,0 +1,18 @@
+---
+// Layout for the MDX component pages (docs/src/pages/*.mdx). Frontmatter:
+// title, description, status (stable | beta).
+import Layout from './Layout.astro';
+
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={`${frontmatter.title} — fivenine ui`}>
+  <article>
+    <header class="docs-component-header">
+      <h1>{frontmatter.title}</h1>
+      <span class={`docs-chip docs-chip--${frontmatter.status}`}>{frontmatter.status}</span>
+      <p>{frontmatter.description}</p>
+    </header>
+    <slot />
+  </article>
+</Layout>
