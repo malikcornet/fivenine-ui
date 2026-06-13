@@ -2,6 +2,10 @@ node_modules/
 dist/
 *.log
 
+# Generated at build time
+components/index.js
+.combined.css
+
 # Environment files — safety net so secrets never land in git
 .env
 .env.*

@@ -1,0 +1,35 @@
+/* References tokens from tokens.css — import it alongside this component. */
+.fn-button {
+  --fn-button-bg: var(--fn-color-fg);
+  --fn-button-fg: var(--fn-color-bg);
+  --fn-button-radius: var(--fn-radius);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.5em 1em;
+  border: 1px solid transparent;
+  border-radius: var(--fn-button-radius);
+  background: var(--fn-button-bg);
+  color: var(--fn-button-fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.fn-button:disabled,
+.fn-button[aria-busy='true'] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fn-button--primary {
+  --fn-button-bg: var(--fn-color-primary);
+  --fn-button-fg: var(--fn-color-bg);
+}
+
+.fn-button--secondary {
+  --fn-button-bg: transparent;
+  --fn-button-fg: var(--fn-color-fg);
+
+  border-color: currentColor;
+}

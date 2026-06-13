@@ -1,0 +1,9 @@
+:root {
+  /* Color */
+  --fn-color-primary: #2563eb;
+  --fn-color-fg: #1a1a1a;
+  --fn-color-bg: #ffffff;
+
+  /* Shape */
+  --fn-radius: 6px;
+}
